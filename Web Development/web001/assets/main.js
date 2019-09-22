@@ -97,6 +97,12 @@ const includeCloseRemarks = (name, interest) => {
 
 nextQuestion();
 
+/**
+ * This method isn't resuable, what if there are more questions to be asked
+ * how then will a response be linked to the exact question.
+ * 
+ * This should be made resuable
+ */
 submit_btn.addEventListener("click", function(e) {
     e.preventDefault();
 
