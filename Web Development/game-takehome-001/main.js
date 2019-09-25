@@ -4,6 +4,7 @@ const ctx = document.querySelector('canvas').getContext('2d');
 const GAME_FRAME = {
 	width: 280,
 	height: 560,
+	colors: ["#ff6d6d", "#fb7d7d","#e5e5e5", "#c407ad"],
 
 	// game area and margins
 	frameLeftMargin: 20,
@@ -67,11 +68,13 @@ class Circle {
 
 		this.lineWidth = Math.floor(Math.random() * 2) + 1;
 		this.radius = Math.floor(Math.random() * 8) + 1;
+
 		this.xPosition = this.generateXPosition();
 		this.yPosition = this.FRAME_OBJECT['frameTopMargin'];
 
 		// sets the lineWith of the circle to the auto generated lineWidth property
 		this.context.lineWidth = this.lineWidth;
+		this.context.strokeStyle = this.strokeColor;
 
 		this.validateXPosition();
 
@@ -153,8 +156,15 @@ class Circle {
 	}
 
 	clear() {
-		// clear drawing area
-		this.FRAME_OBJECT.clearGameArea(this.context);
+		let circleXPos = this.xPosition - this.radius - Math.PI + this.lineWidth;
+		let circleYPos = this.yPosition - this.radius - Math.PI + this.lineWidth;
+		let circleWidth = this.radius * Math.PI + this.lineWidth;
+		let circleHeight = this.radius * Math.PI + this.lineWidth;
+
+		// clear circle
+		this.context.beginPath();
+		this.context.clearRect(circleXPos, circleYPos, circleWidth, circleHeight);
+		this.context.closePath();
 	}
 
 	/**
@@ -334,12 +344,22 @@ const playGame = ( ) => {
 		slider.move(e);
 	});
 
-	// create a falling circle
-	const circle = new Circle('#5c3c8e', GAME_FRAME, ctx);
-	circle.draw();
-	circle.fallDown();
-}
 
+	// create a falling circle
+	let interval = setInterval(()=> {
+		
+		let colorIndex = Math.floor(Math.random() * GAME_FRAME.colors.length);
+		let color = GAME_FRAME.colors[colorIndex];
+
+		new Circle(color, GAME_FRAME, ctx).fallDown();
+		// circle.draw();
+
+		// circle.draw();
+		// circle.fallDown();
+
+	}, 2000);
+	
+}
 
 
 playGame();
