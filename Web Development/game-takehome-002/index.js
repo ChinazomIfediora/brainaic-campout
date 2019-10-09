@@ -37,17 +37,35 @@ function draw(color="green") {
     // draw center component 
     drawCenterComponent();
 
+    // takes the place of setInterval but better than it as it quickly
+    // re-renders component to be drawn on a canvas
+    requestAnimationFrame(draw)
+
 }
 
-function goalPost(x, y, weight, height, color="#ffffff"){
+/**
+ * draws a goal post 
+ * @param {Number} x the horizontal position where drawing will begin
+ * @param {Number} y the vertical postion where drawing will begin
+ * @param {Number} weight the width of the object
+ * @param {Number} height the height of the object
+ * @param {String} color the color of the object default to white
+ */
+function goalPost(x, y, width, height, color="#ffffff"){
     context.beginPath();
     context.strokeStyle = color;
     context.lineWidth = 2;
-    context.strokeRect(x, y, weight, height)
+    context.strokeRect(x, y, width, height)
     context.closePath();
     context.stroke();
 }
 
+/**
+ * draws the horizontal sideline of a field, which in football vanacular is 
+ * called throwing line
+ * @param {Number} y defines the vertical position of the object
+ * @param {String} color initializes the color of the object, default to white
+ */
 function drawXSideLine(y=8, color="#ffffff"){
     context.beginPath();
     context.strokeStyle = color;
@@ -57,6 +75,12 @@ function drawXSideLine(y=8, color="#ffffff"){
     context.stroke();
 }
 
+/**
+ * draws the vertical sideline of a field, which in football vancular is called
+ * corner kick line.
+ * @param {Number} x defines the horizontal position of the object
+ * @param {String} color initializes the color of the object, default to white
+ */
 function drawYSideLine(x=8, color="#ffffff"){
     context.beginPath();
     context.strokeStyle = color;
@@ -66,6 +90,11 @@ function drawYSideLine(x=8, color="#ffffff"){
     context.stroke();
 }
 
+/**
+ * draws the center components of a football field, which is basically
+ * the vertical straight line that divides opponents position and the
+ * big round circle.
+ */
 function drawCenterComponent() {
     let midXPos = canvas.width / 2;
     let midYPos = canvas.height / 2;
@@ -89,4 +118,5 @@ function drawCenterComponent() {
 }
 
 
+// calling the draw function
 draw()
