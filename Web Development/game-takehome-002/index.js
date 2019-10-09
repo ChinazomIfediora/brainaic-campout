@@ -1,3 +1,6 @@
+document.body.style.backgroundColor = "#545450"
+
+
 /** drawing tools constant */
 const canvas = document.querySelector('.platform');
 const context = canvas.getContext('2d');
@@ -11,6 +14,10 @@ const rightGoalXPos = canvas.width - 18;
 const goalYPos = canvas.height / 2.5;
 const goalWeight = 10;
 const goalHeight = 90;
+
+let footballXPos = canvas.width / 2;
+let footballYPos = canvas.height / 2;
+
 
 
 function draw(color="green") {
@@ -36,6 +43,9 @@ function draw(color="green") {
 
     // draw center component 
     drawCenterComponent();
+
+    // draw football
+    drawFootball();
 
     // takes the place of setInterval but better than it as it quickly
     // re-renders component to be drawn on a canvas
@@ -117,6 +127,38 @@ function drawCenterComponent() {
 
 }
 
+/**
+ * draws a ball object with the specified x and y position.
+ * @param {Number} x defines the horizontal position of ball object
+ * @param {Number} y defines the vertical position of ball object
+ */
+function drawFootball(x=footballXPos, y=footballYPos){
+    context.beginPath();
+    context.fillStyle = "#30abb1";
+    // the size of a ball is fixed as the specified radius is 6
+    context.arc(x, y, 6, 0, Math.PI * 2, true);
+    context.fill();
+    
+    context.strokeStyle = "#cddc00";
+    context.lineWidth = 0.5
+    context.stroke();
+    context.closePath();
+}
+
+
+/**
+ * moves ball to a new position and clears the previous position of 
+ * ball
+ * @param {Number} x defines the horizontal position to move a ball to
+ * @param {Number} y defines the vertical position to move a ball to
+ */
+function moveFootball(x, y){
+    footballYPos = y;
+    footballXPos = x;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawFootball(x, y);
+}
+
 
 // calling the draw function
-draw()
+draw();
