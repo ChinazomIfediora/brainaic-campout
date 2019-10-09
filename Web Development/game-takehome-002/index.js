@@ -36,8 +36,8 @@ const bottomSideLine = canvas.height - padSideline;     // vertically
 // value of canvas.width
 const rightSideLine = canvas.width - padSideline;       // horizontally
 
-
-
+// simulation interval constant
+let simulationIntervalFlag = true;
 
 
 
@@ -181,6 +181,42 @@ function moveFootball(x, y){
     drawFootball(x, y);
 }
 
+
+/**
+ * checks if there is a throwin. Throwin occurs when a ball goes 
+ * beyond the vertical lines.
+ */
+function checkThrowIn() {
+    // we'll only be checking for vertical position of the football
+    if (footballYPos < padSideline || footballYPos > bottomSideLine) {
+        console.log("throwIn");
+        simulationIntervalFlag = false;
+        let timeout = setTimeout(() => {
+            console.log("Preparing to throw football");
+        }, 2500);
+        clearTimeout(timeout);
+        simulationIntervalFlag = true;
+    }
+}
+
+/**
+ * checks if there is a corner kick. Corner Kick occurs when a ball goes 
+ * beyond the horizontal lines.
+ */
+function checkCornerKick() {
+    // we'll only be checking for vertical position of the football
+    if (footballXPos < padSideline || footballXPos > rightSideLine) {
+        console.log("Corner Kick");
+        simulationIntervalFlag = false;
+        let timeout = setTimeout(() => {
+            console.log("Preparing Corner Kick");
+        }, 2500);
+        clearTimeout(timeout);
+        simulationIntervalFlag = true;
+    }
+}
+
+
 /**
  * randomly move football to a new position, which makes it 
  * looks like it's being played.
@@ -188,9 +224,13 @@ function moveFootball(x, y){
 function simulateMovingFootball(){
     let newXPos, newYPos;
     setInterval(() => {
-        newXPos = Math.floor(Math.random() * canvas.width);
-        newYPos = Math.floor(Math.random() * canvas.height);
-        moveFootball(newXPos, newYPos)
+        if (simulationIntervalFlag === true){
+            newXPos = Math.floor(Math.random() * canvas.width);
+            newYPos = Math.floor(Math.random() * canvas.height);
+            moveFootball(newXPos, newYPos);
+            checkThrowIn();
+            checkCornerKick();
+        }
     }, 1500);
 }
 
