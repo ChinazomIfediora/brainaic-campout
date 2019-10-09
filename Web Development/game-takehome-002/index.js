@@ -246,12 +246,15 @@ function checkGoalScore() {
 
 	// we also need to get the width of a goal post, as we only want to
 	// record a goal when the ball passes the first vertical bar of the
-	// goal post with the field area
+    // goal post within the field area
+    
 	// we'll need the start and end position also
 
+    // for left goal post
 	let leftGoalHorizontalStartPosition = 0; // left
 	let leftGoalHorizontalEndPosition = goalWidth; // to right
 
+    // for right goal post
 	let rightGoalHorizontalStartPosition = rightGoalXPos; // left
 	let rightGoalHorizontalEndPosition = rightGoalXPos + goalWidth; // to right
 
