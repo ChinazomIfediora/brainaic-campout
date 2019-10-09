@@ -159,6 +159,22 @@ function moveFootball(x, y){
     drawFootball(x, y);
 }
 
+/**
+ * randomly move football to a new position, which makes it 
+ * looks like it's being played.
+ */
+function simulateMovingFootball(){
+    let newXPos, newYPos;
+    setInterval(() => {
+        newXPos = Math.floor(Math.random() * canvas.width);
+        newYPos = Math.floor(Math.random() * canvas.height);
+        moveFootball(newXPos, newYPos)
+    }, 1500);
+}
+
 
 // calling the draw function
 draw();
+
+// calling football simulation
+simulateMovingFootball();
