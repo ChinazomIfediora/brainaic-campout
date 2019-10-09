@@ -10,13 +10,35 @@ canvas.height = 500;
 /** goal post constant */
 const leftGoalXPos = 8;
 const rightGoalXPos = canvas.width - 18;
-
 const goalYPos = canvas.height / 2.5;
 const goalWeight = 10;
 const goalHeight = 90;
 
+/** football initializers */
 let footballXPos = canvas.width / 2;
 let footballYPos = canvas.height / 2;
+
+/** sideline constant */
+const padSideline = 8 // pads the sideline into the visible field area
+
+/** 
+ * The value of padSideline is same as 
+ * topSideline(vertically) & leftSideline(horizontally) 
+ */
+
+// vertical position ends at the value of canvas.height, so to make the
+// sideline visible, there is need to deduct the padSideline from the 
+// value of canvas.height
+const bottomSideLine = canvas.height - padSideline;     // vertically
+
+// horizontal position ends at the value of canvas.width, so to make the
+// sideline visible, there is need to deduct the padSideline from the 
+// value of canvas.width
+const rightSideLine = canvas.width - padSideline;       // horizontally
+
+
+
+
 
 
 
@@ -30,16 +52,16 @@ function draw(color="green") {
     goalPost(rightGoalXPos, goalYPos, goalWeight, goalHeight);
 
     // draw lower side line
-    drawXSideLine(y=canvas.height - 8, color="#ffffff");
+    drawXSideLine(y=bottomSideLine, color="#ffffff");
 
     // draw upper side line
-    drawXSideLine();
+    drawXSideLine();        // uses the default values
 
     // draw left side line
-    drawYSideLine();
+    drawYSideLine();        // uses the default values
 
     // draw right side line
-    drawYSideLine(x=canvas.width - 8);
+    drawYSideLine(x=rightSideLine);
 
     // draw center component 
     drawCenterComponent();
@@ -76,7 +98,7 @@ function goalPost(x, y, width, height, color="#ffffff"){
  * @param {Number} y defines the vertical position of the object
  * @param {String} color initializes the color of the object, default to white
  */
-function drawXSideLine(y=8, color="#ffffff"){
+function drawXSideLine(y=padSideline, color="#ffffff"){
     context.beginPath();
     context.strokeStyle = color;
     context.lineWidth = 1;
@@ -91,7 +113,7 @@ function drawXSideLine(y=8, color="#ffffff"){
  * @param {Number} x defines the horizontal position of the object
  * @param {String} color initializes the color of the object, default to white
  */
-function drawYSideLine(x=8, color="#ffffff"){
+function drawYSideLine(x=padSideline, color="#ffffff"){
     context.beginPath();
     context.strokeStyle = color;
     context.lineWidth = 1;
