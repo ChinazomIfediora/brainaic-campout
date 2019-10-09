@@ -39,10 +39,14 @@ const rightSideLine = canvas.width - padSideline;       // horizontally
 // simulation interval constant
 let simulationIntervalFlag = true;
 
+// info message constant 
+const messageXPos = canvas.width / 2.5 + 8;
+const messageYPos = padSideline + 30;
 
 
 
-function draw(color="green") {
+
+function draw(color="#317131") {
     canvas.style.backgroundColor = color;
 
     // draw left goal
@@ -181,6 +185,16 @@ function moveFootball(x, y){
     drawFootball(x, y);
 }
 
+/**
+ * displays information about the activity in a match
+ * @param {String} message information to be displayed
+ */
+function displayMessage(message) {
+    context.font = '24px serif';
+    context.fillStyle = "#ff7600";
+    context.fillText(message, messageXPos, messageYPos);
+}
+
 
 /**
  * checks if there is a throwin. Throwin occurs when a ball goes 
@@ -189,13 +203,11 @@ function moveFootball(x, y){
 function checkThrowIn() {
     // we'll only be checking for vertical position of the football
     if (footballYPos < padSideline || footballYPos > bottomSideLine) {
-        console.log("throwIn");
+        displayMessage("Throw In");
         simulationIntervalFlag = false;
-        let timeout = setTimeout(() => {
-            console.log("Preparing to throw football");
-        }, 2500);
-        clearTimeout(timeout);
-        simulationIntervalFlag = true;
+        setTimeout(() => {
+            simulationIntervalFlag = true;
+        }, 3000);
     }
 }
 
@@ -206,13 +218,11 @@ function checkThrowIn() {
 function checkCornerKick() {
     // we'll only be checking for vertical position of the football
     if (footballXPos < padSideline || footballXPos > rightSideLine) {
-        console.log("Corner Kick");
+        displayMessage("Corner");
         simulationIntervalFlag = false;
-        let timeout = setTimeout(() => {
-            console.log("Preparing Corner Kick");
-        }, 2500);
-        clearTimeout(timeout);
-        simulationIntervalFlag = true;
+        setTimeout(() => {
+            simulationIntervalFlag = true;
+        }, 3000);
     }
 }
 
