@@ -23,10 +23,16 @@ function draw(color="green") {
     goalPost(rightGoalXPos, goalYPos, goalWeight, goalHeight);
 
     // draw lower side line
-    drawSideLine(y=canvas.height - 8, color="#ffffff");
+    drawXSideLine(y=canvas.height - 8, color="#ffffff");
 
     // draw upper side line
-    drawSideLine();
+    drawXSideLine();
+
+    // draw left side line
+    drawYSideLine();
+
+    // draw right side line
+    drawYSideLine(x=canvas.width - 8);
 
     // draw center component 
     drawCenterComponent();
@@ -42,11 +48,20 @@ function goalPost(x, y, weight, height, color="#ffffff"){
     context.stroke();
 }
 
-function drawSideLine(y=8, color="#ffffff"){
+function drawXSideLine(y=8, color="#ffffff"){
     context.beginPath();
     context.strokeStyle = color;
     context.lineWidth = 1;
     context.strokeRect(0, y, canvas.width, 1);
+    context.closePath();
+    context.stroke();
+}
+
+function drawYSideLine(x=8, color="#ffffff"){
+    context.beginPath();
+    context.strokeStyle = color;
+    context.lineWidth = 1;
+    context.strokeRect(x, 0, 0, canvas.height);
     context.closePath();
     context.stroke();
 }
